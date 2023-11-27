@@ -9,10 +9,10 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { HomeComponent } from './page/home/home.component';
 import { RecipeTableComponent } from './components/recipe-table/recipe-table.component';
-import { DryConversionComponent } from './components/recipe-table/dry-conversion/dry-conversion.component';
-import { FractionComponent } from './components/recipe-table/fraction/fraction.component';
-import { HeaderComponent } from './components/recipe-table/header/header.component';
-import { LiquidConversionComponent } from './components/recipe-table/liquid-conversion/liquid-conversion.component';
+import { DryConversionComponent } from './components/dry-conversion/dry-conversion.component';
+import { FractionComponent } from './components/fraction/fraction.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LiquidConversionComponent } from './components/liquid-conversion/liquid-conversion.component';
 import { RecipeComponent } from './page/recipe/recipe.component';
 
 @NgModule({
