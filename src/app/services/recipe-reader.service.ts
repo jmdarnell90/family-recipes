@@ -4,26 +4,25 @@ import { Recipe } from '../models/recipe.interface';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecipeReaderService {
-  recipeTotal = 917;
+  recipeTotal = 20;
   fullyLoaded = false;
-  FAVORITE_NAME = "family-recipe-favorites"
+  FAVORITE_NAME = 'family-recipe-favorites';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   createFilenames(total: number = this.recipeTotal): string[] {
-    let array: string[] = []
+    let array: string[] = [];
 
     for (let i = 1; i < total + 1; i++) {
       let name = this.createFilename(i);
 
-      array.push(name)
+      array.push(name);
     }
 
-    return array
+    return array;
   }
 
   createFilename(num: number): string {
@@ -36,12 +35,12 @@ export class RecipeReaderService {
       name = '0' + num;
     }
 
-    return name
+    return name;
   }
 
   readRecipes(filenames: string[] = this.createFilenames()): Recipe[] {
-    let array: Recipe[] = []
-    filenames.forEach(async it => {
+    let array: Recipe[] = [];
+    filenames.forEach(async (it) => {
       const text: string = await this.firstValueFrom(it);
       let recipe = this.convertRecipe(text);
       recipe.filename = it;
@@ -51,9 +50,9 @@ export class RecipeReaderService {
       if (it === this.createFilename(this.recipeTotal)) {
         this.fullyLoaded = true;
       }
-    })
+    });
 
-    return array
+    return array;
   }
 
   convertRecipe(text: string): Recipe {
@@ -62,7 +61,11 @@ export class RecipeReaderService {
   }
 
   firstValueFrom(fileNumber: string): Promise<string> {
-    return firstValueFrom(this.http.get(`assets/recipes/${fileNumber}.json`, { responseType: 'text' }));
+    return firstValueFrom(
+      this.http.get(`assets/recipes/${fileNumber}.json`, {
+        responseType: 'text',
+      })
+    );
   }
 
   addToFavorites(fileNumber: string): void {
@@ -73,7 +76,7 @@ export class RecipeReaderService {
 
   removeFromFavorites(fileNumber: string): void {
     let favorites: string[] = this.readFavorites();
-    favorites = favorites.filter(it => it != fileNumber);
+    favorites = favorites.filter((it) => it != fileNumber);
 
     this.setFavorites(favorites);
   }
