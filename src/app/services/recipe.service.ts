@@ -135,6 +135,14 @@ export class RecipeService {
     });
   }
 
+  async readRecipeAsync(filename: string): Promise<Recipe> {
+    let text = await this.firstValueFrom(filename);
+    let recipe = cloneDeep(this.convertRecipe(text));
+    recipe.filename = filename;
+    this.selectedRecipe = recipe;
+    return recipe;
+  }
+
   getSelectedRecipeIndex(): number {
     return this.searchList.indexOf(this.selectedRecipe.filename) + 1;
   }

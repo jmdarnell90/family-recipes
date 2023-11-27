@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { getCategory } from 'src/app/models/category.enum';
 import { Recipe } from '../../models/recipe.interface';
 import { RecipeService } from '../../services/recipe.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-table',
@@ -19,6 +20,7 @@ export class RecipeTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    private router: Router,
     private service: RecipeService
   ) { }
 
@@ -33,8 +35,8 @@ export class RecipeTableComponent implements OnInit {
   click(recipe: Recipe): void {
     this.service.useFavoritesList = this.removeColumns;
     var filename = recipe.filename != null ? recipe.filename.toString() : '001';
-    this.service.searchList = this.dataSource.data.map(item => item.filename);
-    this.service.readRecipe(filename);
+
+    this.router.navigateByUrl(`recipe/${filename}`)
   }
 
   getCategory(categoryNumber: number): string {
